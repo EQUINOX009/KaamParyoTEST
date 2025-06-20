@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Firebase App (Core SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    // ✅ Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZka_6LCmF9gY4c9y86bpKEYCk0OzqTWM",
+      authDomain: "hack-b704e.firebaseapp.com",
+      projectId: "hack-b704e",
+      storageBucket: "hack-b704e.firebasestorage.app",
+      messagingSenderId: "660911664161",
+      appId: "1:660911664161:web:fea299cfb5080800b80760",
+      measurementId: "G-REGFE3MVR4"
+    };
+
+    // ✅ Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // ✅ Save username
+    function saveUsername() {
+      const username = document.getElementById("username").value.trim();
+      if (!username) {
+        alert("Please enter a username.");
+        return;
+      }
+
+      db.collection("auth").doc("eslzjc2ehhRYiAhhnN7h").set({
+        username: username
+      })
+      .then(() => {
+        alert("✅ Username saved successfully!");
+      })
+      .catch((error) => {
+        console.error("❌ Error writing to Firestore: ", error);
+        alert("Failed to save username.");
+      });
+    }
+  </script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
+    <input type="text" id="username" placeholder="Enter your username"
+           class="w-full p-3 mb-4 border border-gray-300 rounded"/>
+    <button onclick="saveUsername()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      Submit
+    </button>
+  </div>
+</body>
+</html>
